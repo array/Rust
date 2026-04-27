@@ -10,10 +10,14 @@ fn read_file(path: String) -> Result<String, String> {
 }
 
 #[command]
-fn list_markdown_files(dir: String) -> Result<Vec<String>, String> {
+fn list_markdown_files(dir: String, descending: bool) -> Result<Vec<String>, String> {
     let mut files = Vec::new();
     collect_md_files(Path::new(&dir), &mut files)?;
-    files.sort();
+    if descending {
+        files.sort_by(|a, b| b.cmp(a));
+    } else {
+        files.sort();
+    }
     Ok(files)
 }
 
