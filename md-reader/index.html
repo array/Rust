@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Markdown Reader</title>
+        <style>
+            body {
+                font-family: sans-serif;
+                width: 100%;
+                margin: 0;
+                display: flex;
+                height: 100vh;
+                overflow: hidden;
+            }
+
+            #sidebar {
+                width: 260px;
+                min-width: 260px;
+                border-right: 1px solid #ccc;
+                display: flex;
+                flex-direction: column;
+                padding: 12px;
+                box-sizing: border-box;
+                height: 100vh;
+                overflow: hidden;
+            }
+            #sidebar button {
+                margin-bottom: 8px;
+            }
+            #file-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                overflow-y: auto;
+                flex: 1;
+                font-size: 0.85rem;
+            }
+            #file-list li {
+                padding: 4px 6px;
+                border-radius: 4px;
+            }
+            #file-list li:hover {
+                background: #f0f0f0;
+            }
+
+            #preview {
+                flex: 1;
+                padding: 24px;
+                overflow-y: auto;
+                line-height: 1.7;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="sidebar">
+            <button id="open-vault-btn">Valutを開く</button>
+            <button id="open-file-btn">ファイルを開く</button>
+            <ul id="file-list"></ul>
+        </div>
+        <div id="preview">
+            <script type="module" src="/src/main.ts"></script>
+        </div>
+    </body>
+</html>
