@@ -1,0 +1,29 @@
+use tauri_plugin_sql::{Builder as SqlBuilder, Migration, MigrationKind};
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    let migrations = vec![Migration {
+        version: 1,
+        description: "create_subscriptions_table",
+        sql: "CREATE TABLE IF NOT EXISTS subscriptions (
+            id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            name        TEXT    NOT NULL,
+            price       REAL    NOT NULL,
+            billing     TEXT    NOT NULL CHECK(billing IN ('monthly','yearly')),
+            category    TEXT    NOT NULL DEFAULT '',
+            next_billing TEXT   NOT NULL DEFAULT '',
+            memo        TEXT    NOT NULL DEFAULT '',
+            created_at  TEXT    NOT NULL DEFAULT (datetime('now','localtime'))
+        );",
+        kind: MigrationKind::Up,
+    }];
+
+    tauri::Builder::default()
+        .plugin(
+            SqlBuilder::default()
+                .add_migrations("sqlite:subscriptions.db", migrations)
+                .build(),
+        )
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}

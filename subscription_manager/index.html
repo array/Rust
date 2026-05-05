@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Subscription Manager</title>
+        <link rel="stylesheet" href="/src/style.css" />
+    </head>
+    <body>
+        <div id="app">
+            <!-- Header -->
+            <header>
+                <div class="logo">
+                    SubsTrack
+                    <span>サブスクリプション管理</span>
+                </div>
+                <button id="btn-add">＋ 追加</button>
+            </header>
+
+            <!-- Summary -->
+            <div id="summary">
+                <div class="summary-card accent">
+                    <div class="label">月額合計（換算）</div>
+                    <div class="value" id="summary-monthly">¥0</div>
+                </div>
+                <div class="summary-card">
+                    <div class="label">年額換算</div>
+                    <div class="value" id="summary-yearly">¥0</div>
+                </div>
+                <div class="summary-card">
+                    <div class="label">登録数</div>
+                    <div class="value" id="summary-count">0 件</div>
+                </div>
+            </div>
+
+            <!-- Filter -->
+            <div id="filter-bar"></div>
+
+            <!-- Cards -->
+            <div id="cards-grid"></div>
+        </div>
+
+        <!-- Modal -->
+        <div id="modal">
+            <div class="modal-box">
+                <div class="modal-header">
+                    <h2 id="modal-title">サブスクリプションを追加</h2>
+                    <button id="btn-close-modal">✕</button>
+                </div>
+                <form id="sub-form" autocomplete="off">
+                    <div class="form-grid">
+                        <div class="form-group full">
+                            <label for="f-name">サービス名</label>
+                            <input
+                                id="f-name"
+                                type="text"
+                                placeholder="例: Netflix"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="f-price">料金（円）</label>
+                            <input
+                                id="f-price"
+                                type="number"
+                                min="0"
+                                step="1"
+                                placeholder="1490"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="f-billing">請求サイクル</label>
+                            <select id="f-billing" required>
+                                <option value="monthly">月額</option>
+                                <option value="yearly">年額</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="f-category">カテゴリ</label>
+                            <select id="f-category">
+                                <!-- options injected by JS -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="f-next-billing">次回請求日</label>
+                            <input id="f-next-billing" type="date" />
+                        </div>
+                        <div class="form-group full">
+                            <label for="f-memo">メモ</label>
+                            <textarea
+                                id="f-memo"
+                                placeholder="ファミリープラン、会社経費など..."
+                            ></textarea>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button
+                            type="button"
+                            class="btn-secondary"
+                            id="btn-cancel"
+                        >
+                            キャンセル
+                        </button>
+                        <button type="submit" class="btn-primary">保存</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script type="module" src="/src/main.ts"></script>
+        <script>
+            // Cancel button alias
+            document
+                .getElementById("btn-cancel")
+                .addEventListener("click", () => {
+                    document.getElementById("modal").classList.remove("open");
+                });
+            document
+                .getElementById("btn-close-modal")
+                .addEventListener("click", () => {
+                    document.getElementById("modal").classList.remove("open");
+                });
+        </script>
+    </body>
+</html>
