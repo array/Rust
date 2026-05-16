@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Markdown Reader</title>
+        <!-- 1. Pico.cssの読み込み -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+        />
+        <style>
+            /*
+           2. アプリのレイアウト（画面固定＆スクロール）に必要な最小限のCSSだけ残します。
+           Pico.cssは「上から下へ読むドキュメント」向けなので、サイドバー固定アプリにするための設定です。
+        */
+            body,
+            html {
+                height: 100vh;
+                margin: 0;
+                overflow: hidden;
+            }
+            .app-layout {
+                display: grid;
+                grid-template-columns: 260px 1fr;
+                height: 100vh;
+            }
+            #sidebar {
+                /* Pico.cssが用意している変数（色）を使って馴染ませます */
+                background-color: var(--pico-form-element-background-color);
+                border-right: 1px solid var(--pico-muted-border-color);
+                padding: 1rem;
+                display: flex;
+                flex-direction: column;
+                overflow-y: auto;
+            }
+            #sidebar button {
+                margin-bottom: 0.5rem;
+            }
+            #preview-container {
+                padding: 2rem;
+                overflow-y: auto;
+            }
+            /* ファイルリストのホバーなどの微調整 */
+            #file-list {
+                list-style: none;
+                padding: 0;
+                margin-top: 1rem;
+            }
+            #file-list li {
+                padding: 0.5rem;
+                border-radius: var(--pico-border-radius);
+                cursor: pointer;
+                font-size: 0.85rem;
+            }
+            #file-list li:hover {
+                background-color: var(--pico-secondary-background);
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- 画面全体をグリッドレイアウトで2分割 -->
+        <div class="app-layout">
+            <!-- 左側：サイドバー -->
+            <aside id="sidebar">
+                <!-- TS側のIDを変えないため、そのままのIDを使用します -->
+                <button id="open-vault-btn">Vaultを開く</button>
+
+                <!-- Pico.cssのクラスでボタンの見た目に変化をつけます -->
+                <button id="open-file-btn" class="secondary">
+                    ファイルを開く
+                </button>
+                <button id="sort-toggle-btn" class="outline">
+                    ソート順: ▼
+                </button>
+
+                <ul id="file-list"></ul>
+            </aside>
+
+            <!-- 右側：プレビュー領域 -->
+            <main id="preview-container">
+                <!--
+                articleタグを使うことで、枠線のついた読みやすいカード風になります。
+                不要であれば divタグ に変えても構いません。
+            -->
+                <article id="preview">
+                    <!-- 初期表示用メッセージ -->
+                    <p>
+                        左側のメニューからファイルを開くか、Markdownファイルをドラッグ＆ドロップしてください。
+                    </p>
+                </article>
+            </main>
+        </div>
+
+        <!-- スクリプトはプレビュー領域の外（bodyの最後）に配置します -->
+        <script type="module" src="/src/main.ts"></script>
+    </body>
+</html>

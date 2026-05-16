@@ -1,0 +1,17 @@
+[package]
+name = "vivaldi_ltl"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+eframe = "0.27" # GUIフレームワーク
+reqwest = { version = "0.12", features = ["json"] } # HTTPクライアント
+serde = { version = "1.0", features = ["derive"] } # シリアライズ
+tokio = { version = "1", features = ["full"] } # 非同期実行
+webbrowser = "1.0" # ブラウザ起動用
+chrono = { version = "0.4", features = ["serde"] } # 時間のパース
+regex = "1"
+image = "0.25"
+
+[build-dependencies]
+winres = "0.1"
